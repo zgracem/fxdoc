@@ -12,7 +12,7 @@ Displays information parsed from a shell function's docstring
 
 1. `fxdoc --syntax` prints the f(x)doc syntax reference.
 
-    ![](https://raw.githubusercontent.com/zgracem/fxdoc/master/syntax-reference.png)
+    <img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/syntax-reference.png" width="550" height="656">
 
 2. Document your shell functions accordingly.
 
