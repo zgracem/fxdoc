@@ -1,8 +1,9 @@
+# shellcheck disable=SC2120,SC2128
 # ┌───────────────────────────────────────────────────────────────────────────┐
 # │                                                                   f(x)doc │
 # └───────────────────────────────────────────────────────────────────────────┘
 
-[[ -n $FX_DEBUG ]] && printf "### sourcing %s\n" "${BASH_SOURCE[0]}"
+[[ -n $FX_DEBUG ]] && printf '### sourcing %s\n' "${BASH_SOURCE[0]}"
 
 unset -v FXDOC_LOADED
 
@@ -24,6 +25,7 @@ fxdoc()
     return 64
   elif [[ $1 == --reload && -z $2 ]]; then
     # Undocumented debug behaviour: `fxdoc --reload` re-.s this file.
+    # shellcheck disable=SC2064
     trap ". '$FXDOC_LOADED'; trap - RETURN" RETURN
     return
   fi
@@ -47,18 +49,18 @@ fxdoc()
         shift
         ;;
       --?*)
-        printf >&2 "invalid option: %s\n" "$1"
+        printf >&2 "invalid option: %s\\n" "$1"
         return 64
         ;;
       *)
-        if [[ -n $func && -z $action ]]; then
-          printf >&2 "%s: extraneous argument\n" "$1"
+        if [[ -n $func ]]; then
+          printf >&2 "%s: extraneous argument\\n" "$1"
           return 64
         elif declare -f "$1" >/dev/null; then
           local func=$1
           shift
         else
-          printf >&2 "%s: function not defined\n" "$1"
+          printf >&2 "%s: function not defined\\n" "$1"
           return 1
         fi
     esac
@@ -132,8 +134,9 @@ _fx::parse()
   src_line=${src##*:}
 
   if [[ $2 == --reload ]]; then
+    # shellcheck disable=SC1090
     . "$src_file" || {
-      printf >&2 "fxdoc: failed to reload '%s'\n" "$src_file"
+      printf >&2 "fxdoc: failed to reload '%s'\\n" "$src_file"
       return 1
     }
   fi
@@ -205,32 +208,32 @@ _fx::print()
   shift $((OPTIND - 1))
 
   if ! [[ -n $docs || -n $usage ]]; then
-    printf >&2 "%s: no docstrings found\n" "$func"
+    printf >&2 "%s: no docstrings found\\n" "$func"
     return 1
   fi
 
   if [[ -n $docs ]]; then
-    printf "%s – %s\n" "$func" "${docs[*]}"
+    printf "%s – %s\\n" "$func" "${docs[*]}"
   fi
 
   if [[ -n $usage ]]; then
     ### Hanging indent style
-    # printf "Usage: %s\n" "${usage[0]}"
+    # printf "Usage: %s\\n" "${usage[0]}"
     # if (( ${#usage[@]} > 1 )); then
-    #   printf "       %s\n" "${usage[@]:1}"
+    #   printf "       %s\\n" "${usage[@]:1}"
     # fi
     printf "Usage: "
     if (( ${#usage[@]} > 1 )); then
-      printf "\n  %s" "${usage[@]}"
+      printf "\\n  %s" "${usage[@]}"
     else
       printf "%s" "${usage[0]}"
     fi
-    printf "\n"
+    printf "\\n"
   fi
 
   if [[ -n $switches ]]; then
-    printf "Options:\n"
-    printf "  %s\n" "${switches[@]}"
+    printf "Options:\\n"
+    printf "  %s\\n" "${switches[@]}"
   fi
 
   # not implemented
@@ -242,7 +245,7 @@ _fx::print()
     if (( ${#reqs[@]} > 1 )); then
       printf ", %s" "${reqs[@]:1}"
     fi
-    printf "\n"
+    printf "\\n"
   fi
 
   if [[ -n $used ]]; then
@@ -250,16 +253,16 @@ _fx::print()
     if (( ${#used[@]} > 1 )); then
       printf ", %s" "${used[@]:1}"
     fi
-    printf "\n"
+    printf "\\n"
   fi
 
   if [[ -n $notes ]]; then
     if (( ${#notes[@]} == 1 )); then
-      printf "Note: %s\n" "${notes[0]}" \
+      printf "Note: %s\\n" "${notes[0]}" \
       | fold -s
     else
-      printf "Notes:\n"
-      printf "  %s\n" "${notes[@]}"
+      printf "Notes:\\n"
+      printf "  %s\\n" "${notes[@]}"
     fi
   fi
 }
