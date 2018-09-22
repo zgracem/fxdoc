@@ -1,4 +1,4 @@
-# 𝑓❨𝓍❩𝑑𝑜𝑐
+# 𝑓(𝓍)𝑑𝑜𝑐
 
 **f(x)doc** (pronounced "function doc") is a syntax to document your shell 
 functions with inline comments, and a utility to access those docstrings
@@ -10,11 +10,27 @@ with `#:` (the _prefix_). The prefix is followed by whitespace, a single symbol
 
 For example, the following function definition—
 
-<img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/function-definition.png" width="550" height="164">
+```bash
+daysold()
+{ #: - finds files that have been modified in the last N days
+  #: $ daysold <n> [dir]
+  #: | n   = maximum age of found files, in days
+  #: | dir = directory to search (default: PWD)
+
+  mdfind -onlyin "${2-.}" "kMDItemFSContentChangeDate>\$time.today(-$1)"
+}
+```
 
 —will result in the following output:
 
-<img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/output.png" width="550" height="135">
+```
+$ fxdoc daysold
+daysold – finds files that have been modified in the last N days
+Usage: daysold <n> [dir]
+Options:
+  n   = maximum age of found files
+  dir = directory to search (default: PWD)
+```
 
 ## Installation
 
@@ -26,7 +42,7 @@ For example, the following function definition—
 
 1. `fxdoc --syntax` prints the f(x)doc syntax reference.
 
-    <img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/type-indicators.png" width="550" height="656">
+    <img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/type-indicators.png" width="550" height="180">
 
 2. Document your shell functions accordingly.
 
