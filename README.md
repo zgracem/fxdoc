@@ -48,6 +48,13 @@ Options:
 
 3. You can then access your docstrings from the CLI in a nice format.
 
+## Examples
+
+Most of the shell functions in my [dotfiles][] are documented with f(x)doc.
+Check the `bash/functions.d` and `sh/profile.d` directories.
+
+[dotfiles]: https://github.com/zgracem/dotconfig
+
 ## Say hello
 
 [zgm&#x40;inescapable&#x2e;org](mailto:zgm%40inescapable%2eorg)
