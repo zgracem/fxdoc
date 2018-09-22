@@ -1,6 +1,20 @@
-# f(x)doc
+# 𝑓❨𝓍❩𝑑𝑜𝑐
 
-Displays information parsed from a shell function's docstring
+**f(x)doc** (pronounced "function doc") is a syntax to document your shell 
+functions with inline comments, and a utility to access those docstrings
+from the command line.
+
+Typical shell comments begin with a `#` character; f(x)doc docstrings begin 
+with `#:` (the _prefix_). The prefix is followed by whitespace, a single symbol
+(the _type indicator_), more whitespace, and finally the docstring itself.
+
+For example, the following function definition—
+
+<img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/function-definition.png" width="550" height="164">
+
+—will result in the following output:
+
+<img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/output.png" width="550" height="135">
 
 ## Installation
 
@@ -12,7 +26,7 @@ Displays information parsed from a shell function's docstring
 
 1. `fxdoc --syntax` prints the f(x)doc syntax reference.
 
-    <img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/syntax-reference.png" width="550" height="656">
+    <img src="https://raw.githubusercontent.com/zgracem/fxdoc/master/type-indicators.png" width="550" height="656">
 
 2. Document your shell functions accordingly.
 
